@@ -1,20 +1,33 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class NewCar extends Component {
   state = {
     model: "",
-    color: ""
+    color: "",
+    year: ""
   };
 
   handleChange = event => {
     let value = event.target.value;
     let name = event.target.name;
-    console.log("Value: ", value);
-    console.log("Name: ", name);
 
     this.setState({
       [name]: value
     });
+  };
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+    // console.log(this.state);
+    axios
+      .post("/api/new", this.state)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   render() {
@@ -39,6 +52,24 @@ class NewCar extends Component {
               name="color"
               value={this.state.color}
             />
+          </div>
+          <div className="form-group">
+            <input
+              type="number"
+              placeholder="Year"
+              onChange={this.handleChange}
+              name="year"
+              value={this.state.year}
+            />
+          </div>
+          <div className="form-group">
+            <button
+              type="submit"
+              className="btn btn-primary"
+              onClick={this.handleFormSubmit}
+            >
+              Submit
+            </button>
           </div>
         </form>
       </div>
