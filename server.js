@@ -23,6 +23,23 @@ connection.on("error", (err) => {
     console.log("Mongoose default connection error: " + err);
 });
 
+app.get("/api/cars/:id", function(req, res) {
+    db.Tesla.findById(req.params.id)
+    .then((singleTesla) => {
+        res.json({
+            message: "Requested all Teslas",
+            error: false,
+            data: singleTesla
+        });
+    }).catch((err) => {
+        console.log(err);
+        res.json({
+            message: err.message,
+            error: true
+        })
+    })
+});
+
 app.get("/api/cars", function(req, res) {
     db.Tesla.find({})
     .then((allTeslas) => {
@@ -39,7 +56,7 @@ app.get("/api/cars", function(req, res) {
             error: true
         })
     })
-})
+});
 
 app.post("/api/new", function(req, res) {
     db.Tesla.create(req.body)
