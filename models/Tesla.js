@@ -17,6 +17,10 @@ var TeslaSchema = new Schema({
     type: Number,
     required: true
   },
+  imageURL: {
+    type: String,
+    required: true
+  } 
 });
 
 // This creates our model from the above schema, using mongoose's model method
