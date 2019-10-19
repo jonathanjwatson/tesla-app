@@ -43,6 +43,9 @@ class Single extends Component {
                 <Link to="/collection"><button>Go back to collection</button></Link>
             </div>
             <div className="col">
+                <Link to={"/edit/" + this.state._id}><button>Edit</button></Link> 
+            </div>
+            <div className="col">
                 <Link to="/"><button>Go Home</button></Link>
             </div>
         </div>
