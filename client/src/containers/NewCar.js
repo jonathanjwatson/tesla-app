@@ -5,7 +5,8 @@ class NewCar extends Component {
   state = {
     model: "",
     color: "",
-    year: ""
+    year: "",
+    imageURL: ""
   };
 
   handleChange = event => {
@@ -24,9 +25,15 @@ class NewCar extends Component {
       .post("/api/new", this.state)
       .then(response => {
         console.log(response);
+        if(response.data.error){
+          alert("Failed to create" + response.data.message);
+        }else{
+          this.props.history.push('/collection/' + response.data.data._id);
+        } 
       })
       .catch(err => {
         console.log(err);
+        alert("Failed to create: " + err.message);
       });
   };
 
@@ -60,6 +67,15 @@ class NewCar extends Component {
               onChange={this.handleChange}
               name="year"
               value={this.state.year}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="Image URL"
+              onChange={this.handleChange}
+              name="imageURL"
+              value={this.state.imageURL}
             />
           </div>
           <div className="form-group">
