@@ -19,8 +19,9 @@ var TeslaSchema = new Schema({
   },
   imageURL: {
     type: String,
-    required: true
-  } 
+    required: true,
+    default: "http://blog.logomyway.com/wp-content/uploads/2019/06/tesla-logo.jpg"
+  }
 });
 
 // This creates our model from the above schema, using mongoose's model method
