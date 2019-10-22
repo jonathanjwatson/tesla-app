@@ -1,7 +1,8 @@
 import React from "react";
+import "./App.css";
 import Collection from "./containers/Collection";
 import Home from "./containers/Home";
-import Single from "./containers/Single";
+import Single from "./containers/Single/Single";
 import NewCar from "./containers/NewCar";
 import EditCar from './containers/EditCar';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";

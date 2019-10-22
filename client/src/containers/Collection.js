@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import CarDetails from "../components/CarDetails/CarDetails";
+import SingleButton from "../components/SingleButton/SingleButton";
 
 class Collection extends Component {
   state = {
@@ -24,16 +26,10 @@ class Collection extends Component {
   };
   render() {
     return (
-      <div>
+      <div className="container">
         <h1>Collection of Teslas</h1>
         {this.state.cars.map((car, i) => (
-          <div key={car._id}>
-            <p>Model: {car.model}</p>
-            <p>Color: {car.color}</p>
-            <p>Year: {car.year}</p>
-            <p>ID: {car._id}</p>
-            <Link to={"/collection/" + car._id}>Link</Link>
-          </div>
+          <CarDetails {...car} button={<SingleButton _id={car._id} />}/>
         ))}
       </div>
     );
