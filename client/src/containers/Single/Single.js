@@ -35,15 +35,35 @@ class Single extends Component {
         console.log(err);
       });
   };
+
+  deleteCarById = id => {
+    let shouldDelete = window.confirm("Are you sure you want to delete this tesla?");
+    if (shouldDelete === true) {
+      axios
+        .delete(`/api/cars/${id}`)
+        .then(response => {
+          console.log(response);
+          alert("Your car was successfully deleted.");
+          this.props.history.push("/collection");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  };
+
   render() {
     return (
       <div className="container">
-        <CarDetails {...this.state} button={<CollectionButton/>}/> 
+        <CarDetails
+          {...this.state}
+          button={<CollectionButton />}
+          deleteButton={true}
+          deleteCarById={this.deleteCarById}
+        />
 
         <div className="row">
-          <div className="col">
-
-          </div>
+          <div className="col"></div>
           <div className="col">
             <Link to={"/edit/" + this.state._id}>
               <button>Edit</button>

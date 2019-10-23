@@ -45,9 +45,14 @@ class EditCar extends Component {
   handleSubmit = event => {
     event.preventDefault();
     axios
-      .put("/api/car", this.state)
+      .put(`/api/cars/${this.state._id}`, this.state)
       .then(response => {
         console.log(response);
+        if (response.data.error) {
+          alert("Failed to create" + response.data.message);
+        } else {
+          this.props.history.push("/collection/" + response.data.data._id);
+        }
       })
       .catch(err => {
         console.log(err);
@@ -56,63 +61,65 @@ class EditCar extends Component {
 
   render() {
     return (
-      <div className="row">
-        <h1>This is the edit page</h1>
-        <div className="col-sm-3"></div>
-        <div className="col-sm-6">
-          <form>
-            <div className="form-group">
-              <label htmlFor="model">Tesla Model</label>
-              <input
-                className="form-control"
-                type="text"
-                name="model"
-                placeholder="Model"
-                value={this.state.model}
-                onChange={this.handleInputChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="color">Tesla Color</label>
-              <input
-                className="form-control"
-                type="text"
-                name="color"
-                placeholder="Color"
-                value={this.state.color}
-                onChange={this.handleInputChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="year">Tesla Year</label>
-              <input
-                className="form-control"
-                type="number"
-                name="year"
-                placeholder="Year"
-                value={this.state.year}
-                onChange={this.handleInputChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="imageURL">Tesla Image URL</label>
-              <input
-                className="form-control"
-                type="text"
-                name="imageURL"
-                placeholder="Image URL"
-                value={this.state.imageURL}
-                onChange={this.handleInputChange}
-              />
-            </div>
-            <div className="form-group">
-              <button className="btn btn-primary" onClick={this.handleSubmit}>
-                Submit Changes
-              </button>
-            </div>
-          </form>
+      <div className="container">
+        <div className="row">
+          <h1>This is the edit page</h1>
+          <div className="col-sm-3"></div>
+          <div className="col-sm-6">
+            <form>
+              <div className="form-group">
+                <label htmlFor="model">Tesla Model</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="model"
+                  placeholder="Model"
+                  value={this.state.model}
+                  onChange={this.handleInputChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="color">Tesla Color</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="color"
+                  placeholder="Color"
+                  value={this.state.color}
+                  onChange={this.handleInputChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="year">Tesla Year</label>
+                <input
+                  className="form-control"
+                  type="number"
+                  name="year"
+                  placeholder="Year"
+                  value={this.state.year}
+                  onChange={this.handleInputChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="imageURL">Tesla Image URL</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="imageURL"
+                  placeholder="Image URL"
+                  value={this.state.imageURL}
+                  onChange={this.handleInputChange}
+                />
+              </div>
+              <div className="form-group">
+                <button className="btn btn-primary" onClick={this.handleSubmit}>
+                  Submit Changes
+                </button>
+              </div>
+            </form>
+          </div>
+          <div className="col-sm-3"></div>
         </div>
-        <div className="col-sm-3"></div>
       </div>
     );
   }

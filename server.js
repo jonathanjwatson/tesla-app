@@ -12,6 +12,7 @@ const app = express();
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
+mongoose.set('useFindAndModify', false);
 mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true});
 
 const connection = mongoose.connection;
@@ -27,7 +28,7 @@ app.get("/api/cars/:id", function(req, res) {
     db.Tesla.findById(req.params.id)
     .then((singleTesla) => {
         res.json({
-            message: "Requested all Teslas",
+            message: "Requested single Teslas",
             error: false,
             data: singleTesla
         });
@@ -39,6 +40,43 @@ app.get("/api/cars/:id", function(req, res) {
         })
     })
 });
+
+app.put("/api/cars/:id", function(req, res) {
+    console.log("I'm inside a put route!");
+    console.log(req.body);
+    db.Tesla.findByIdAndUpdate(req.body._id, req.body)
+    .then(singleTesla => {
+        res.json({
+            message: `Updated tesla with id: ${singleTesla._id}`,
+            error: false,
+            data: singleTesla
+        });
+    }).catch(err => {
+        console.log(err);
+        res.json({
+            message: err.message,
+            error: true
+        })
+    });
+});
+
+app.delete("/api/cars/:id", function(req, res) {
+    db.Tesla.deleteOne({_id: req.params.id})
+    .then((response) => {
+        // console.log(response);
+        res.json({
+            message: `Deleted tesla with id: ${req.params.id}`,
+            error: false,
+            data: response
+        });
+    }).catch((err) => {
+        console.log(err);
+        res.json({
+            message: err.message,
+            error: true
+        })
+    })
+})
 
 app.get("/api/cars", function(req, res) {
     db.Tesla.find({})

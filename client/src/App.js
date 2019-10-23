@@ -6,10 +6,12 @@ import Single from "./containers/Single/Single";
 import NewCar from "./containers/NewCar";
 import EditCar from './containers/EditCar';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import NavBar from "./components/NavBar/NavBar";
 
 function App() {
   return (
     <Router>
+    <NavBar />
       <Switch>
         <Route path="/new-car" component={NewCar} />
         <Route path="/edit/:id" component={EditCar}/>
