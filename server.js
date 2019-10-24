@@ -96,7 +96,39 @@ app.get("/api/cars", function(req, res) {
     })
 });
 
+app.post("/api/cars/:id/accident/new", function(req, res) {
+    db.Accident.create(req.body)
+    .then((newAccident) => {
+        console.log(newAccident);
+        db.Tesla.findByIdAndUpdate(req.params.id, {accident: newAccident._id}, {new: true})
+        .then((updatedTesla) => {
+            res.json({
+                message: "Successfully added accident",
+                error: false,
+                data: updatedTesla
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.json({
+                message: "Failed to add accident to Tesla",
+                error: true,
+                data: err
+            });
+        });
+    })
+    .catch((err) => {
+        console.log(err);
+        res.json({
+            message: "Failed to create accident",
+            error: true,
+            data: err
+        });
+    })
+});
+
 app.post("/api/new", function(req, res) {
+    req.body.imageURL === "" ? delete req.body.imageURL: req.body.imageURL;
     db.Tesla.create(req.body)
     .then((newTesla) => {
         console.log("New tesla: ", newTesla);
@@ -104,7 +136,7 @@ app.post("/api/new", function(req, res) {
             message: "Successfully created",
             error: false,
             data: newTesla
-        })
+        });
     }).catch((err) => {
         console.log(err);
         res.json({

@@ -61,6 +61,9 @@ class Single extends Component {
           deleteButton={true}
           deleteCarById={this.deleteCarById}
         />
+        <div className="row">
+          <button>Had an accident?</button>
+        </div>
 
         <div className="row">
           <div className="col"></div>
