@@ -11,7 +11,10 @@ class Single extends Component {
     color: "",
     year: "",
     imageURL: "",
-    _id: ""
+    _id: "",
+    repaired: false,
+    cost: "",
+    showAccidentForm: false
   };
 
   componentDidMount() {
@@ -37,7 +40,9 @@ class Single extends Component {
   };
 
   deleteCarById = id => {
-    let shouldDelete = window.confirm("Are you sure you want to delete this tesla?");
+    let shouldDelete = window.confirm(
+      "Are you sure you want to delete this tesla?"
+    );
     if (shouldDelete === true) {
       axios
         .delete(`/api/cars/${id}`)
@@ -52,6 +57,24 @@ class Single extends Component {
     }
   };
 
+  toggleRepaired = () => {
+    console.log(this.state.repaired);
+    let repaired = !this.state.repaired;
+    this.setState({ repaired });
+  };
+
+  handleCostChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
+
+  handleAccidentFormSubmit = event => {
+    event.preventDefault();
+    console.log(this.state);
+  };
+
   render() {
     return (
       <div className="container">
@@ -61,6 +84,61 @@ class Single extends Component {
           deleteButton={true}
           deleteCarById={this.deleteCarById}
         />
+        {this.state.showAccidentForm ? (
+          <div className="row">
+            <form>
+              <div className="custom-control custom-checkbox">
+                <input
+                  type="checkbox"
+                  className="custom-control-input"
+                  id="repaired"
+                  name="repaired"
+                  checked={this.state.repaired}
+                  onChange={this.toggleRepaired}
+                />
+                <label className="custom-control-label" htmlFor="repaired">
+                  Repaired?
+                </label>
+              </div>
+              <div className="form-group">
+                <label htmlFor="cost">Cost</label>
+                <input
+                  type="text"
+                  name="cost"
+                  value={this.state.cost}
+                  onChange={this.handleCostChange}
+                />
+              </div>
+              <div className="form-group">
+                <button
+                  className="btn btn-dark"
+                  onClick={this.handleAccidentFormSubmit}
+                >
+                  Submit Your Accident
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-light"
+                  onClick={() => {
+                    this.setState({ showAccidentForm: false });
+                  }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        ) : (
+          <button
+            type="button"
+            className="btn btn-dark"
+            onClick={() => {
+              this.setState({ showAccidentForm: true });
+            }}
+          >
+            Report an Accident
+          </button>
+        )}
 
         <div className="row">
           <div className="col"></div>
