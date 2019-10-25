@@ -26,6 +26,7 @@ connection.on("error", (err) => {
 
 app.get("/api/cars/:id", function(req, res) {
     db.Tesla.findById(req.params.id)
+    .populate("accident")
     .then((singleTesla) => {
         res.json({
             message: "Requested single Teslas",
@@ -42,8 +43,6 @@ app.get("/api/cars/:id", function(req, res) {
 });
 
 app.put("/api/cars/:id", function(req, res) {
-    console.log("I'm inside a put route!");
-    console.log(req.body);
     db.Tesla.findByIdAndUpdate(req.body._id, req.body)
     .then(singleTesla => {
         res.json({
@@ -94,6 +93,43 @@ app.get("/api/cars", function(req, res) {
             error: true
         })
     })
+});
+
+app.post("/api/cars/:id/accident/new", function(req, res){
+    //TODO: create the accident in the db
+    db.Accident.create(req.body)
+    .then((newAccident) => {
+        //THEN update the car by id with the accident
+        db.Tesla.findByIdAndUpdate(req.params.id, {accident: newAccident._id}, {new: true})
+        .populate("accident")
+        .then((updatedTesla) => {
+            //IF update successful
+            //THEN return the updated car
+            res.json({
+                message: "Successfully created accident and updated tesla.",
+                error: false,
+                data: updatedTesla
+            });
+        }).catch((err) => {
+            console.log(err);
+            //ELSE alert the user
+            res.json({
+                message: `Failed to update tesla with accident id: ${newAccident._id}`,
+                error: true,
+                data: err
+            });
+        })
+    }).catch((err) => {
+        console.log(err);
+        res.json({
+            message: "Failed to create accident.",
+            error: true,
+            data: err
+        });
+//ELSE alert the user
+    })
+    
+    
 });
 
 app.post("/api/new", function(req, res) {

@@ -17,9 +17,25 @@ const CarDetails = props => {
           <li>Color: {props.color}</li>
           <li>Year: {props.year}</li>
           <li>ID: {props._id}</li>
+          {props.accident && (
+            <>
+              <li>Accident:</li>
+              <li>Repaired ? {JSON.stringify(props.accident.repaired)}</li>
+              <li>Cost: {props.accident.cost}</li>
+            </>
+          )}
         </ul>
         {props.button}
-        {props.deleteButton && <button className="btn btn-danger" onClick={() => {props.deleteCarById(props._id)}}>Delete!</button>}
+        {props.deleteButton && (
+          <button
+            className="btn btn-danger"
+            onClick={() => {
+              props.deleteCarById(props._id);
+            }}
+          >
+            Delete!
+          </button>
+        )}
       </div>
       <div className="col-sm-2" />
     </div>
