@@ -31,7 +31,8 @@ class Single extends Component {
           color: car.data.data.color,
           year: car.data.data.year,
           imageURL: car.data.data.imageURL,
-          _id: car.data.data._id
+          _id: car.data.data._id,
+          accident: car.data.data.accident
         });
       })
       .catch(err => {
@@ -73,6 +74,27 @@ class Single extends Component {
   handleAccidentFormSubmit = event => {
     event.preventDefault();
     console.log(this.state);
+    const accident = {
+      repaired: this.state.repaired,
+      cost: this.state.cost
+    }
+    axios.post(`/api/cars/${this.state._id}/accident/new`, accident)
+    .then((response) => {
+      console.log(response);
+      this.setState({
+        repaired: false,
+        cost: "",
+        showAccidentForm: false,
+        model: response.data.data.model,
+        color: response.data.data.color,
+        year: response.data.data.year,
+        imageURL: response.data.data.imageURL,
+        _id: response.data.data._id,
+        accident: response.data.data.accident
+      });
+    }).catch((err) => {
+      console.log(err);
+    })
   };
 
   render() {

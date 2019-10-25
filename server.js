@@ -26,6 +26,7 @@ connection.on("error", (err) => {
 
 app.get("/api/cars/:id", function(req, res) {
     db.Tesla.findById(req.params.id)
+    .populate("accident")
     .then((singleTesla) => {
         res.json({
             message: "Requested single Teslas",
@@ -100,6 +101,7 @@ app.post("/api/cars/:id/accident/new", function(req, res){
     .then((newAccident) => {
         //THEN update the car by id with the accident
         db.Tesla.findByIdAndUpdate(req.params.id, {accident: newAccident._id}, {new: true})
+        .populate("accident")
         .then((updatedTesla) => {
             //IF update successful
             //THEN return the updated car
