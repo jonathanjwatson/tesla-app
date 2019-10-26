@@ -1,26 +1,48 @@
 import React from "react";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
+import Logo from "../../assets/tesla-logo.png";
 
 const NavBar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-    <Link to="/" className="navbar-brand">
-        Tesla Owners App
-    </Link>
+    <nav className="navbar navbar-expand-lg navbar-dark bg-primary ">
       <button
         className="navbar-toggler"
         type="button"
         data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
+        data-target="#navbarTogglerDemo01"
+        aria-controls="navbarTogglerDemo01"
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
         <span className="navbar-toggler-icon"></span>
       </button>
-
-      <div className="collapse navbar-collapse" id="navbarSupportedContent">
-
+      <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <Link
+          to="/"
+          className="navbar-brand"
+          style={{ color: "white", fontFamily: "Nova Round" }}
+        >
+          <img
+            src={Logo}
+            style={{ maxHeight: "2em", paddingRight: "1em" }}
+            alt="Tesla Owner's App Logo"
+          />
+          Tesla Owner's Dashboard
+        </Link>
+        <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
+        </ul>
+        <div className="form-inline my-2 my-lg-0">
+        <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li className="nav-item active">
+        <Link
+          to="/new-car"
+          className="nav-link"
+        >
+              Add New Car <span className="sr-only">(current)</span>
+            </Link>
+          </li>
+          </ul>
+          </div>
       </div>
     </nav>
   );

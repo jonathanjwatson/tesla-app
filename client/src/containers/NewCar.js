@@ -22,7 +22,7 @@ class NewCar extends Component {
     event.preventDefault();
     // console.log(this.state);
     axios
-      .post("/api/new", this.state)
+      .post("/api/cars/new", this.state)
       .then(response => {
         console.log(response);
         if(response.data.error){

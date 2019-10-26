@@ -25,8 +25,7 @@ class Collection extends Component {
   };
   render() {
     return (
-      <div className="container">
-        <h1>Collection of Teslas</h1>
+      <div className="container" style={{paddingTop: "2em"}}>
         {this.state.cars.map((car, i) => (
           <CarDetails {...car} key={car._id} button={<SingleButton _id={car._id} />}/>
         ))}
