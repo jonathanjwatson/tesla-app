@@ -113,6 +113,7 @@ router.post("/:id/accident/new", function(req, res){
 });
 
 router.post("/new", function(req, res) {
+    req.body.imageURL === "" ? delete req.body.imageURL: req.body.imageURL;
     db.Tesla.create(req.body)
     .then((newTesla) => {
         console.log("New tesla: ", newTesla);
