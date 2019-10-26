@@ -26,6 +26,7 @@ var TeslaSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Accident"
   },
+  // accident: [{ type : ObjectId, ref: 'Accident' }],
   updated_at: {
     type: Date
   },
