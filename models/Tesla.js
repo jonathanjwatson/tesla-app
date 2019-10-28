@@ -19,7 +19,6 @@ var TeslaSchema = new Schema({
   },
   imageURL: {
     type: String,
-    required: true,
     default: "http://blog.logomyway.com/wp-content/uploads/2019/06/tesla-logo.jpg"
   },
   accident: {

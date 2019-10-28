@@ -99,7 +99,7 @@ class Single extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container" style={{paddingTop: "2em"}}>
         <CarDetails
           {...this.state}
           button={<CollectionButton />}
@@ -123,7 +123,7 @@ class Single extends Component {
                 </label>
               </div>
               <div className="form-group">
-                <label htmlFor="cost">Cost</label>
+                <label htmlFor="cost">Cost </label>
                 <input
                   type="text"
                   name="cost"
@@ -151,6 +151,7 @@ class Single extends Component {
             </form>
           </div>
         ) : (
+          <>
           <button
             type="button"
             className="btn btn-dark"
@@ -160,21 +161,11 @@ class Single extends Component {
           >
             Report an Accident
           </button>
+          <Link to={"/edit/" + this.state._id}>
+              <button className="btn btn-secondary">Edit</button>
+            </Link>
+            </>
         )}
-
-        <div className="row">
-          <div className="col"></div>
-          <div className="col">
-            <Link to={"/edit/" + this.state._id}>
-              <button>Edit</button>
-            </Link>
-          </div>
-          <div className="col">
-            <Link to="/">
-              <button>Go Home</button>
-            </Link>
-          </div>
-        </div>
       </div>
     );
   }

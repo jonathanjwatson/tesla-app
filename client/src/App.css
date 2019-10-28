@@ -24,3 +24,7 @@
 h1{
   font-family: 'Nova Round', cursive;
 }
+
+.bg-primary{
+  background-color: #E82127!important;
+}
