@@ -29,20 +29,21 @@ const NavBar = () => {
           />
           Tesla Owner's Dashboard
         </Link>
-        <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-        </ul>
+        <ul className="navbar-nav mr-auto mt-2 mt-lg-0"></ul>
         <div className="form-inline my-2 my-lg-0">
-        <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-        <li className="nav-item active">
-        <Link
-          to="/new-car"
-          className="nav-link"
-        >
-              Add New Car <span className="sr-only">(current)</span>
-            </Link>
-          </li>
+          <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li className="nav-item active">
+              <Link to="/new-car" className="nav-link">
+                Add New Car <span className="sr-only">(current)</span>
+              </Link>
+            </li>
+            <li className="nav-item active">
+              <Link to="/auth" className="nav-link">
+                Sign Up <span className="sr-only">(current)</span>
+              </Link>
+            </li>
           </ul>
-          </div>
+        </div>
       </div>
     </nav>
   );

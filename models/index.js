@@ -2,5 +2,6 @@
 
 module.exports = {
   Tesla: require("./Tesla"),
-  Accident: require("./Accident")
+  Accident: require("./Accident"),
+  User: require("./User")
 };
