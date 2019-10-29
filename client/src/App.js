@@ -11,9 +11,9 @@ import Auth from "./containers/Auth/Auth";
 
 function App() {
   const [isAuthed, setIsAuthed] = useState(false);
-  const toggleIsAuthed = () => {
-    setIsAuthed(!isAuthed);
-  };
+  // const toggleIsAuthed = () => {
+  //   setIsAuthed(!isAuthed);
+  // };
 
   return (
     <Router>
@@ -26,7 +26,9 @@ function App() {
         <Route path="/collection" component={Collection} />
         <Route
           path="/auth"
-          component={props => <Auth {...props} isAuthed={isAuthed} setIsAuthed={setIsAuthed}/>}
+          component={props => (
+            <Auth {...props} isAuthed={isAuthed} setIsAuthed={setIsAuthed} />
+          )}
         />
         <Route path="/" component={Home} />
       </Switch>
