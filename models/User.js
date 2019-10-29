@@ -15,26 +15,35 @@ const UserSchema = new Schema({
   }
 });
 
+UserSchema.methods = {
+  checkPassword: function(inputPassword) {
+    return bcrypt.compareSync(inputPassword, this.password);
+  },
+  hashPassword: plainTextPassword => {
+    return bcrypt.hashSync(plainTextPassword, 10);
+  }
+};
+
 UserSchema.pre("save", function(next) {
   now = new Date();
   this.updated_at = now;
   if (!this.created_at) {
     this.created_at = now;
   }
+
+  if (this.password) {
+    this.password = this.hashPassword(this.password);
+  }
+
+  if(this.username){
+    this.username = this.username.toLowerCase();
+  }
+
   next();
 });
-
-UserSchema.methods = {
-  checkPassword: function (inputPassword) {
-    return bcrypt.compareSync(inputPassword, this.password)
-  },
-  hashPassword: plainTextPassword => {
-    return bcrypt.hashSync(plainTextPassword, 10)
-  }
-};
 
 // This creates our model from the above schema, using mongoose's model method
 const User = mongoose.model("User", UserSchema);
 
 // Export the Article model
-module.exports = Accident;
+module.exports = User;
