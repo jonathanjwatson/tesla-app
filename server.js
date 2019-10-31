@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 mongoose.set("useFindAndModify", false);
+mongoose.set("useCreateIndex", true);
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 const connection = mongoose.connection;
