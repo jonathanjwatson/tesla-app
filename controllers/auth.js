@@ -9,7 +9,7 @@ router.post("/", function(req, res) {
       if (foundUser) {
         console.log(foundUser.checkPassword(req.body.password));
         if (foundUser.checkPassword(req.body.password)) {
-          //create a JWT to send back
+          //TODO: create a JWT to send back
           res.json({
             message: "Welcome back!",
             error: false,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import Collection from "./containers/Collection";
 import Home from "./containers/Home";
@@ -11,23 +11,41 @@ import Auth from "./containers/Auth/Auth";
 
 function App() {
   const [isAuthed, setIsAuthed] = useState(false);
-  // const toggleIsAuthed = () => {
-  //   setIsAuthed(!isAuthed);
-  // };
+
+  useEffect(() => {
+    const localStorageIsAuthed = localStorage.getItem('isAuthed');
+    if(localStorageIsAuthed){
+      storeIsAuthed(localStorageIsAuthed);
+    }
+  }, []);
+
+  const toggleIsAuthed = () => {
+    setIsAuthed(!isAuthed);
+  };
+
+  const storeIsAuthed = incomingValue => {
+    localStorage.setItem('isAuthed', incomingValue);
+    setIsAuthed(incomingValue);
+  };
 
   return (
     <Router>
-      <NavBar />
-      {/* <button onClick={toggleIsAuthed}>Toggle isAuthed</button> */}
+      <NavBar isAuthed={isAuthed} setIsAuthed={storeIsAuthed} />
+      <button onClick={toggleIsAuthed}>Toggle isAuthed</button>
       <Switch>
-        <Route path="/new-car" component={NewCar} />
+        <Route
+          path="/new-car"
+          component={props => (
+            <NewCar {...props} isAuthed={isAuthed} setIsAuthed={storeIsAuthed} />
+          )}
+        />
         <Route path="/edit/:id" component={EditCar} />
         <Route path="/collection/:id" component={Single} />
         <Route path="/collection" component={Collection} />
         <Route
           path="/auth"
           component={props => (
-            <Auth {...props} isAuthed={isAuthed} setIsAuthed={setIsAuthed} />
+            <Auth {...props} isAuthed={isAuthed} setIsAuthed={storeIsAuthed} />
           )}
         />
         <Route path="/" component={Home} />

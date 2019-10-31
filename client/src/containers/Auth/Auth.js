@@ -5,17 +5,17 @@ class Auth extends Component {
   state = {
     username: "",
     password: "",
-    newUser: true
+    showLogin: true
   };
 
-  componentDidMount(){
-    if(this.props.isAuthed){
+  componentDidMount() {
+    if (this.props.isAuthed) {
       this.props.history.push("/dashboard");
     }
   }
 
-  componentDidUpdate(){
-    if(this.props.isAuthed){
+  componentDidUpdate() {
+    if (this.props.isAuthed) {
       this.props.history.push("/dashboard");
     }
   }
@@ -34,9 +34,9 @@ class Auth extends Component {
       .post("/api/register", this.state)
       .then(response => {
         console.log(response);
-        if(response.data.error === false){
+        if (response.data.error === false) {
           this.props.setIsAuthed(true);
-        }else{
+        } else {
           alert("There was a problem!");
         }
       })
@@ -53,9 +53,9 @@ class Auth extends Component {
       .post("/api/auth", this.state)
       .then(response => {
         console.log(response);
-        if(response.data.error === false){
+        if (response.data.error === false) {
           this.props.setIsAuthed(true);
-        }else{
+        } else {
           alert("There was a problem!");
         }
       })
@@ -101,18 +101,7 @@ class Auth extends Component {
                 />
               </div>
               <div className="form-group" style={{ textAlign: "center" }}>
-                {this.state.newUser ? (
-                  <>
-                    <button
-                      className="btn btn-primary"
-                      onClick={this.handleSignUp}
-                      style={{ width: "100%" }}
-                    >
-                      Register
-                    </button>
-                    <p onClick={this.toggleSignIn}>Already a member?</p>
-                  </>
-                ) : (
+                {this.state.showLogin ? (
                   <>
                     <button
                       className="btn btn-primary"
@@ -124,6 +113,17 @@ class Auth extends Component {
                     <p onClick={this.toggleSignIn}>
                       Need to create an account?
                     </p>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      className="btn btn-primary"
+                      onClick={this.handleSignUp}
+                      style={{ width: "100%" }}
+                    >
+                      Register
+                    </button>
+                    <p onClick={this.toggleSignIn}>Already a member?</p>
                   </>
                 )}
               </div>

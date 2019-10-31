@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/tesla-logo.png";
 
-const NavBar = () => {
+const NavBar = props => {
+  useEffect(() => {
+    console.log("Inside useEffect");
+    console.log(props);
+  });
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary ">
       <button
@@ -37,11 +41,19 @@ const NavBar = () => {
                 Add New Car <span className="sr-only">(current)</span>
               </Link>
             </li>
-            <li className="nav-item active">
-              <Link to="/auth" className="nav-link">
-                Sign Up <span className="sr-only">(current)</span>
-              </Link>
-            </li>
+            {props.isAuthed ? (
+              <li className="nav-item active">
+                <Link to="/auth" className="nav-link" onClick={() => {props.setIsAuthed(false)}}>
+                  Log Out <span className="sr-only">(current)</span>
+                </Link>
+              </li>
+            ) : (
+              <li className="nav-item active">
+                <Link to="/auth" className="nav-link">
+                  Sign In <span className="sr-only">(current)</span>
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>
