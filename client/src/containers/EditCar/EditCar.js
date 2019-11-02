@@ -70,7 +70,8 @@ class EditCar extends Component {
               <div className="form-group">
                 <label htmlFor="model">Tesla Model</label>
                 <input
-                  className="form-control"
+                  className="form-control"  
+                  id="edit-car-model-input"
                   type="text"
                   name="model"
                   placeholder="Model"

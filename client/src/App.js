@@ -4,7 +4,7 @@ import Collection from "./containers/Collection";
 import Home from "./containers/Home";
 import Single from "./containers/Single/Single";
 import NewCar from "./containers/NewCar";
-import EditCar from "./containers/EditCar";
+import EditCar from "./containers/EditCar/EditCar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import Auth from "./containers/Auth/Auth";
